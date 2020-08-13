@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Cart;
 use App\Order;
+use App\Product;
+use App\OrderItem;
+
 use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
@@ -46,26 +49,29 @@ class CheckoutController extends Controller
     
       
         if ($order) {
+   
+            
+            //dd($items);
     
-            $items = Cart::getContent();
-    
-            foreach ($items as $item)
-            {
-                // A better way will be to bring the product id with the cart items
-                // you can explore the package documentation to send product id with the cart
-                $product = Product::where('name', $item->name)->first();
-    
-                $orderItem = new OrderItem([
-                    'product_id'    =>  $product->id,
-                    'quantity'      =>  $item->$details['quantity'],
-                    'price'         =>  $item-> $details['price'] * $details['quantity']
+           
+               
+                $product = Product::find(1);
+               
+               
+                $orderItem = OrderItem::create([
+                
+               
+                     'product_id'    =>  $product->id,
+                    'quantity'      =>  $details['quantity'],
+                    'price'         =>   $details['price'] * $details['quantity']
                 ]);
     
                 $order->items()->save($orderItem);
             }
-        }
+        
     
         return $order;
+        // return redirect()->back()->with(['ok' => true, 'msg' => 'Updated']);
     }
 
 
