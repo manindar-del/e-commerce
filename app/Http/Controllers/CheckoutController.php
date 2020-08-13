@@ -71,7 +71,7 @@ class CheckoutController extends Controller
         
     
         return $order;
-        // return redirect()->back()->with(['ok' => true, 'msg' => 'Updated']);
+        
     }
 
 
