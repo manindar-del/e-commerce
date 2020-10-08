@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Auth;
-use App\Currency;
+
 
 class LoginController extends Controller
 {
@@ -38,7 +38,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-       
+        $this->redirectTo = route('home.book-now');
+        $this->middleware('guest')->except('logout');
     }
 
     /**
@@ -57,16 +58,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-        if (Auth::attempt([
-            'user_name' => $request->user_name,
-            'password' => $request->password,
-            'is_active' => $request->null
-        ])) {
-            if ('agent' == Auth::user()->type) {
-                return redirect()->route('home.book-now');
-            }
-        
-        }
+
 
 
         if (Auth::attempt([
@@ -77,7 +69,18 @@ class LoginController extends Controller
             if ('admin' == Auth::user()->type) {
                 return redirect()->route('admin.booking.index');
             }
-        
+            return redirect($this->redirectTo);
+        }
+
+        if (Auth::attempt([
+            'user_name' => $request->user_name,
+            'password' => $request->password,
+            'is_active' => null
+        ])) {
+            if ('agent' == Auth::user()->type) {
+                return redirect()->route('home.book-now');
+            }
+            return redirect($this->redirectTo);
         }
         return redirect()->back()->with([
             'ok' => false,

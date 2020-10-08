@@ -20,7 +20,7 @@ Route::get('template', function() {
     return view('emails.welcome');
 });
 
-
+Route::middleware(['auth', 'admin'])->get('admin/booking', 'Admin\BookingController@index')->name('admin.booking.index');
 Route::get('/', 'HomeController@index')->name('home');
 // get request logout
  Route::get('/logout', 'Auth\LoginController@logout');
@@ -33,7 +33,7 @@ Route::get('/book', 'HomeController@book')->name('home.book-now')->middleware(['
 Route::get('cart', 'HomeController@cart')->name('agent.cart');
  
 Route::get('add-to-cart/{id}', 'HomeController@addToCart')->name('addToCart');
-Route::patch('update-cart', 'HomeController@update')->name('update');;
+Route::patch('update-cart', 'HomeController@update')->name('update');
  
 Route::delete('remove-from-cart', 'HomeController@remove');
 
@@ -41,3 +41,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/checkout', 'CheckoutController@getCheckout')->name('agent.checkout.index');
     Route::post('/checkout/order', 'CheckoutController@placeOrder')->name('placeOrder');
 });
+
+
+
+
+
+
+
+
+
+
+

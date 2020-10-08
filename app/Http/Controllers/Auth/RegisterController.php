@@ -6,10 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-// use Mail;
+
  use App\User;
-// use App\Mail\Welcome;
-// use App\Mail\NewUser;
+
 
 
 class RegisterController extends Controller
@@ -81,7 +80,7 @@ class RegisterController extends Controller
             'type' => 'agent',
         ]);
         
-        
+        return redirect()->intended('auth.login');
     }
 
 
