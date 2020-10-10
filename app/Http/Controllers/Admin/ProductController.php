@@ -109,7 +109,7 @@ class ProductController extends Controller
           $product->photo = $request->get('photo');
           $product->price = $request->get('price');
           $product->description = $request->get('description');
-          $type->save();
+          $product->save();
 
 
         return redirect()->back()->with(['ok' => true, 'msg' => 'Updated']);
