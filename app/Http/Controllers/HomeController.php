@@ -141,7 +141,7 @@ class HomeController extends Controller
 
 
 
-    ////////////////
+    ////////////////////////////////////////////////////////////////////API/////////////////
         public function getAllProducts() {
            
             $products = Product::get()->toJson(JSON_PRETTY_PRINT);

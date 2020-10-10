@@ -45,10 +45,10 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-
-
-
-
-
-
+Route::get('admin/Products', 'Admin\ProductController@index')->name('admin.Product.index');
+Route::get('admin/Products/create', 'Admin\ProductController@create')->name('admin.Product.create');
+Route::post('admin/Products', 'Admin\ProductController@store')->name('admin.Product.store');
+Route::get('admin/Products/{id}', 'Admin\ProductController@edit')->name('admin.Product.edit');
+Route::post('admin/Products/{id}', 'Admin\ProductController@update')->name('admin.Product.update');
+Route::delete('admin/Products/{id}', 'Admin\ProductController@destroy')->name('admin.Product.destroy');
 
